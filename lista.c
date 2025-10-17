@@ -56,16 +56,17 @@ int lista_insere_fim (struct lista *lista, int chave){
 
 int lista_insere_ordenado (struct lista *lista, int chave){
     int i;
+    int *ptr;
     struct nodo *novo_nodo = malloc(sizeof(struct nodo));
     if((!novo_nodo)||(lista->tamanho = 5))
         return 0;
     if(lista->ini->chave > chave)
         lista_insere_inicio(lista, chave);
     else{
-    lista->ptr=lista->ini;
+    lista_inicia_iterador(lista);
     for (i = 0; i < lista->tamanho; i++){
         if (lista->ptr->prox->chave <= chave)
-            lista->ptr=lista->ptr->prox;
+            lista_incrementa_iterador(lista, ptr);
     }
     novo_nodo->prox=lista->ptr->prox;
     novo_nodo->chave=chave;
@@ -103,4 +104,9 @@ void lista_inicia_iterador (struct lista *lista){
 }
 
 int lista_incrementa_iterador (struct lista *lista, int *chave){
+    lista->ptr=lista->ptr->prox;
+    if (lista->ptr = NULL)
+        return 0;
+    chave = lista->ptr->chave;
+    return 1;    
 }
